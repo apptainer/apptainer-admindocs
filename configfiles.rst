@@ -1,13 +1,13 @@
 .. _singularity_configfiles:
 
 ###################################
- {Singularity} Configuration Files
+ {Project} Configuration Files
 ###################################
 
-As a {Singularity} Administrator, you will have access to various
+As a {Project} Administrator, you will have access to various
 configuration files, that will let you manage container resources, set
 security restrictions and configure network options etc, when
-installing {Singularity} across the system. All of these files can be
+installing {Project} across the system. All of these files can be
 found in ``/usr/local/etc/singularity`` by default for installations
 from source (though the location may differ based on options passed
 during the installation). For installations from RPM or Deb packages
@@ -21,12 +21,12 @@ parameters contained by them.
 
 Most of the configuration options are set using the file
 ``singularity.conf`` that defines the global configuration for
-{Singularity} across the entire system. Using this file, system
-administrators can influence the behavior of {Singularity} and
+{Project} across the entire system. Using this file, system
+administrators can influence the behavior of {Project} and
 restrict the functionality that users can access. As a security
-measure, for ``setuid`` installations of {Singularity},
+measure, for ``setuid`` installations of {Project},
 ``singularity.conf`` must be owned by root and must not be writable by
-users or {Singularity} will refuse to run. This is not the case for
+users or {Project} will refuse to run. This is not the case for
 ``non-setuid`` installations that will only ever execute with user
 privilege and thus do not require such limitations.
 
@@ -37,17 +37,17 @@ grouped together based on relevance. The actual order of options within
 Setuid and Capabilities
 =======================
 
-``allow setuid``: To use all features of {Singularity} containers,
-{Singularity} will need to have access to some privileged system calls.
-{Singularity} achieves this by using a helper binary with the ``setuid``
+``allow setuid``: To use all features of {Project} containers,
+{Project} will need to have access to some privileged system calls.
+{Project} achieves this by using a helper binary with the ``setuid``
 bit enabled. The ``allow-setuid`` option lets you enable/disable users
-ability to utilize these binaries within {Singularity}. By default, it
-is set to "yes", but when disabled, various {Singularity} features will
+ability to utilize these binaries within {Project}. By default, it
+is set to "yes", but when disabled, various {Project} features will
 not function. Please see :ref:`Unprivileged Installations
-<userns-limitations>` for more information about running {Singularity}
+<userns-limitations>` for more information about running {Project}
 without ``setuid`` enabled.
 
-``root default capabilities``: {Singularity} allows the specification of
+``root default capabilities``: {Project} allows the specification of
 capabilities kept by the root user when running a container by default.
 Options include:
 
@@ -69,10 +69,10 @@ Options include:
 Loop Devices
 ============
 
-{Singularity} uses loop devices to facilitate the mounting of container file systems from SIF and other images.
+{Project} uses loop devices to facilitate the mounting of container file systems from SIF and other images.
 
 ``max loop devices``: This option allows an admin to limit the total
-number of loop devices {Singularity} will consume at a given time.
+number of loop devices {Project} will consume at a given time.
 
 ``shared loop devices``: This allows containers running the same image
 to share a single loop device. This minimizes loop device usage and
@@ -93,7 +93,7 @@ namespace when running their containers through the ``--pid`` flag.
 Configuration Files
 ===================
 
-{Singularity} can automatically create or modify several system files
+{Project} can automatically create or modify several system files
 within containers to ease usage.
 
 .. note::
@@ -101,21 +101,21 @@ within containers to ease usage.
    These options will have no effect if the file does not exist within
    the container, or overlay or underlay support are enabled.
 
-``config passwd``: This option determines if {Singularity} should
+``config passwd``: This option determines if {Project} should
 automatically append an entry to ``/etc/passwd`` for the user running
 the container.
 
-``config group``: This option determines if {Singularity} should
+``config group``: This option determines if {Project} should
 automatically append the calling user's group entries to the containers
 ``/etc/group``.
 
-``config resolv_conf``: This option determines if {Singularity} should
+``config resolv_conf``: This option determines if {Project} should
 automatically bind the host's ``/etc/resolv.conf`` within the container.
 
 Session Directory and System Mounts
 ===================================
 
-``sessiondir max size``: In order for the {Singularity} runtime to run a
+``sessiondir max size``: In order for the {Project} runtime to run a
 container it needs to create a temporary in-memory ``sessiondir`` as a
 location to assemble various components of the container, including
 mounting filesystems over the base image. This option specifies how
@@ -124,18 +124,18 @@ large enough to accommodate files that will be created in a
 ``--writable-tmpfs``, or the empty ``/tmp`` and other paths provided
 when ``--contain`` is used.
 
-``mount proc``: This option determines if {Singularity} should
+``mount proc``: This option determines if {Project} should
 automatically bind mount ``/proc`` within the container.
 
-``mount sys``: This option determines if {Singularity} should
+``mount sys``: This option determines if {Project} should
 automatically bind mount ``/sys`` within the container.
 
-``mount dev``: Should be set to "YES", if you want {Singularity} to
+``mount dev``: Should be set to "YES", if you want {Project} to
 automatically bind mount a complete ``/dev`` tree within the container.
 If set to ``minimal``, then only ``/dev/null``, ``/dev/zero``,
 ``/dev/random``, ``/dev/urandom``, and ``/dev/shm`` will be included.
 
-``mount devpts``: This option determines if {Singularity} will mount a
+``mount devpts``: This option determines if {Project} will mount a
 new instance of ``devpts`` when there is a ``minimal`` ``/dev``
 directory as explained above, or when the ``--contain`` option is
 passed.
@@ -146,20 +146,20 @@ passed.
    ``CONFIG_DEVPTS_MULTIPLE_INSTANCES=y``, or a kernel version at or
    newer than ``4.7``.
 
-``mount home``: When this option is enabled, {Singularity} will
+``mount home``: When this option is enabled, {Project} will
 automatically determine the calling user's home directory and attempt to
 mount it into the container.
 
-``mount tmp``: When this option is enabled, {Singularity} will
+``mount tmp``: When this option is enabled, {Project} will
 automatically bind mount ``/tmp`` and ``/var/tmp`` into the container
-from the host. If the ``--contain`` option is passed, {Singularity} will
+from the host. If the ``--contain`` option is passed, {Project} will
 create both locations within the ``sessiondir`` or within the directory
 specified by the ``--workdir`` option if that is passed as well.
 
-``mount hostfs``: This option will cause {Singularity} to probe the host
+``mount hostfs``: This option will cause {Project} to probe the host
 for all mounted filesystems and bind those into containers at runtime.
 
-``mount slave``: {Singularity} automatically mounts a handful host
+``mount slave``: {Project} automatically mounts a handful host
 system directories to the container by default. This option determines
 if filesystem changes on the host should automatically be propagated to
 those directories in the container.
@@ -170,23 +170,23 @@ those directories in the container.
    system should be reflected up in the container.
 
 ``memory fs type``: This option allows admins to choose the temporary
-filesystem used by {Singularity}. Temporary filesystems are primarily
+filesystem used by {Project}. Temporary filesystems are primarily
 used for system directories like ``/dev`` when the host system directory
 is not mounted within the container.
 
 .. note::
 
    For Cray CLE 5 and 6, up to CLE 6.0.UP05, there is an issue (kernel
-   panic) when Singularity uses tmpfs, so on affected systems it's
+   panic) when {Project} uses tmpfs, so on affected systems it's
    recommended to set this value to ``ramfs`` to avoid a kernel panic.
 
 Bind Mount Management
 =====================
 
 ``bind path``: This option is used to define a list of files or
-directories to automatically be made available when {Singularity} runs a
+directories to automatically be made available when {Project} runs a
 container. In order to successfully mount listed paths the file or
-directory must exist within the container, or {Singularity} must be
+directory must exist within the container, or {Project} must be
 configured with either overlay or underlay support enabled.
 
 .. note::
@@ -223,7 +223,7 @@ allow containers that are owned by the specified user.
 
 .. note::
 
-   This feature will only apply when {Singularity} is running in SUID
+   This feature will only apply when {Project} is running in SUID
    mode and the user is non-root. By default this is set to ``NULL``.
 
 ``limit container groups``: This restricts container execution to only
@@ -231,7 +231,7 @@ allow containers that are owned by the specified group.
 
 .. note::
 
-   This feature will only apply when {Singularity} is running in SUID
+   This feature will only apply when {Project} is running in SUID
    mode and the user is non-root. By default this is set to ``NULL``.
 
 ``limit container paths``: This restricts container execution to only
@@ -239,12 +239,12 @@ allow containers that are located within the specified path prefix.
 
 .. note::
 
-   This feature will only apply when {Singularity} is running in SUID
+   This feature will only apply when {Project} is running in SUID
    mode and the user is non-root. By default this is set to ``NULL``.
 
 ``allow container ${type}``: This option allows admins to limit the
 types of image formats that can be leveraged by users with
-{Singularity}.
+{Project}.
 
 -  ``allow container sif`` permits / denies execution of unencrypted SIF
    containers.
@@ -261,7 +261,7 @@ types of image formats that can be leveraged by users with
 
    These limitations do not apply to the root user.
 
-   This behavior differs from {Singularity} versions before 3.9, where
+   This behavior differs from {Project} versions before 3.9, where
    the ``allow container squashfs/extfs`` directives also applied to the
    filesystem embedded in a SIF image.
 
@@ -275,7 +275,7 @@ virtualization
 Unrestricted use of CNI network configurations requires root privilege,
 as certain configurations may disrupt the host networking environment.
 
-{Singularity} 3.8 allows specific users or groups to be granted the
+{Project} 3.8 allows specific users or groups to be granted the
 ability to run containers with administrator specified CNI
 configurations.
 
@@ -283,28 +283,28 @@ configurations.
 configurations to be used by the specified list of users. By default
 only root may use CNI configuration, except in the case of a fakeroot
 execution where only 40_fakeroot.conflist is used. This feature only
-applies when {Singularity} is running in SUID mode and the user is
+applies when {Project} is running in SUID mode and the user is
 non-root.
 
 ``allow net groups``: Allow specified root administered CNI network
 configurations to be used by the specified list of users. By default
 only root may use CNI configuration, except in the case of a fakeroot
 execution where only 40_fakeroot.conflist is used. This feature only
-applies when {Singularity} is running in SUID mode and the user is
+applies when {Project} is running in SUID mode and the user is
 non-root.
 
 ``allow net networks``: Specify the names of CNI network configurations
 that may be used by users and groups listed in the allow net users /
 allow net groups directives. Thus feature only applies when
-{Singularity} is running in SUID mode and the user is non-root.
+{Project} is running in SUID mode and the user is non-root.
 
 GPU Options
 ===========
 
-{Singularity} provides integration with GPUs in order to facilitate GPU
+{Project} provides integration with GPUs in order to facilitate GPU
 based workloads seamlessly. Both options listed below are particularly
 useful in GPU only environments. For more information on using GPUs with
-{Singularity} checkout :ref:`GPU Library Configuration
+{Project} checkout :ref:`GPU Library Configuration
 <gpu_library_configuration>`.
 
 ``always use nv``: Enabling this option will cause every action command
@@ -321,13 +321,13 @@ Supplemental Filesystems
 ``enable fusemount``: This will allow users to mount fuse filesystems
 inside containers using the ``--fusemount`` flag.
 
-``enable overlay``: This option will allow {Singularity} to create bind
+``enable overlay``: This option will allow {Project} to create bind
 mounts at paths that do not exist within the container image. This
 option can be set to ``try``, which will try to use an overlayfs. If it
 fails to create an overlayfs in this case the bind path will be silently
 ignored.
 
-``enable underlay``: This option will allow {Singularity} to create bind
+``enable underlay``: This option will allow {Project} to create bind
 mounts at paths that do not exist within the container image, just like
 ``enable overlay``, but instead using an underlay. This is suitable for
 systems where overlay is not possible or not working. If the overlay
@@ -337,12 +337,12 @@ CNI Configuration and Plugins
 =============================
 
 ``cni configuration path``: This option allows admins to specify a
-custom path for the CNI configuration that {Singularity} will use for
+custom path for the CNI configuration that {Project} will use for
 `Network Virtualization
 <{userdocs}/networking.html>`_.
 
 ``cni plugin path``: This option allows admins to specify a custom path
-for {Singularity} to access CNI plugin executables. Check out the
+for {Project} to access CNI plugin executables. Check out the
 `Network Virtualization
 <{userdocs}/networking.html>`_
 section of the user guide for more information.
@@ -350,7 +350,7 @@ section of the user guide for more information.
 External Binaries
 =================
 
-{Singularity} calls a number of external binaries for full
+{Project} calls a number of external binaries for full
 functionality. The paths for certain critical binaries can be set in
 ``singularity.conf``. At build time, ``mconfig`` will set initial values
 for these, by searching on the ``$PATH`` environment variable. You can
@@ -393,7 +393,7 @@ SIF and SquashFS containers.
 Concurrent Downloads
 ====================
 
-{Singularity} 3.9 and above will pull ``library://`` container images
+{Project} 3.9 and above will pull ``library://`` container images
 using multiple concurrent downloads of parts of the image. This speeds
 up downloads vs using a single stream. The defaults are generally
 appropriate for the Sylabs Cloud, but may be tuned for your network
@@ -411,7 +411,7 @@ when concurrent downloads are enabled.
 Updating Configuration Options
 ==============================
 
-In order to manage this configuration file, {Singularity} has a ``config
+In order to manage this configuration file, {Project} has a ``config
 global`` command group that allows you to get, set, reset, and unset
 values through the CLI. It's important to note that these commands must
 be run with elevated privileges because the ``singularity.conf`` can
@@ -465,7 +465,7 @@ option:
 
    $ sudo singularity config global --dry-run --set "bind path" /etc/resolv.conf
    # SINGULARITY.CONF
-   # This is the global configuration file for Singularity. This file controls
+   # This is the global configuration file for {Project}. This file controls
    [...]
    # BIND PATH: [STRING]
    # DEFAULT: Undefined
@@ -509,7 +509,7 @@ processes.
 -  v2 documentation:
    https://www.kernel.org/doc/Documentation/cgroup-v2.txt
 
-{Singularity} 3.9 and above can apply resource limitations to systems
+{Project} 3.9 and above can apply resource limitations to systems
 configured for both cgroups v1 and the v2 unified hierarchy. Resource
 limits are specified using a TOML file that represents the ``resources``
 section of the OCI runtime-spec:
@@ -525,7 +525,7 @@ eBPF programs that implement the requested access controls.
 
 .. note::
 
-   {Singularity} does not currently support applying native cgroups v2
+   {Project} does not currently support applying native cgroups v2
    ``unified`` resource limit specifications. Use the cgroups v1 limits,
    which will be translated to v2 format when applied on a cgroups v2
    system.
@@ -692,14 +692,14 @@ is specified in bytes per second.
 Other limits
 ------------
 
-{Singularity} can apply all resource limits that are valid in the OCI
+{Project} can apply all resource limits that are valid in the OCI
 runtime-spec ``resources`` section, **except** native ``unified``
 cgroups v2 constraints. Use the cgroups v1 limits, which will be
 translated to v2 format when applied on a cgroups v1 system.
 
 See
 https://github.com/opencontainers/runtime-spec/blob/master/config-linux.md#control-groups
-for information about the available limits. Note that {Singularity} uses
+for information about the available limits. Note that {Project} uses
 TOML format for the configuration file, rather than JSON.
 
 .. _execution_control_list:
@@ -744,8 +744,8 @@ group are allowed to run.
 .. note::
 
    The ECL checks will use the new signature format introduced in
-   {Singularity} 3.6.0. Containers signed with older versions of
-   Singularity {Singularity} will not pass ECL checks.
+   {Project} 3.6.0. Containers signed with older versions of
+   {Project} will not pass ECL checks.
 
    To temporarily permit the use of legacy insecure signatures, set
    ``legacyinsecure = true`` in ``ecl.toml``.
@@ -753,7 +753,7 @@ group are allowed to run.
 Managing ECL public keys
 ========================
 
-Since {Singularity} 3.7.0 a global keyring is used for ECL signature
+Since {Project} 3.7.0 a global keyring is used for ECL signature
 verification. This keyring can be administered using the ``--global``
 flag for the following commands:
 
@@ -775,7 +775,7 @@ flag for the following commands:
  GPU Library Configuration
 ***************************
 
-When a container includes a GPU enabled application, {Singularity} (with
+When a container includes a GPU enabled application, {Project} (with
 the ``--nv`` or ``--rocm`` options) can properly inject the required
 Nvidia or AMD GPU driver libraries into the container, to match the
 host's kernel. The GPU ``/dev`` entries are provided in containers run
@@ -793,7 +793,7 @@ NVIDIA GPUs / CUDA
 
 The ``nvliblist.conf`` configuration file is used to specify libraries
 and executables that need to be injected into the container when running
-{Singularity} with the ``--nv`` Nvidia GPU support option. The provided
+{Project} with the ``--nv`` Nvidia GPU support option. The provided
 ``nvliblist.conf`` is suitable for CUDA 11, but may need to be modified
 if you need to include additional libraries, or further libraries are
 added to newer versions of the Nvidia driver/CUDA distribution.
@@ -811,17 +811,17 @@ The `nvidia-container-cli
 officially support method for configuring containers to use a GPU. It is
 targeted at OCI container runtimes.
 
-{Singularity} 3.9 introduces an experimental ``--nvccli`` option, which
+{Project} 3.9 introduces an experimental ``--nvccli`` option, which
 will call out to ``nvidia-container-cli`` for container GPU setup,
 rather than use the ``nvliblist.conf`` approach.
 
 To use ``--nvccli`` a ``nvidia-container-cli`` binary must be
 present on the host. The binary that is run is controlled by the
 ``nvidia-container-cli`` directive in ``singularity.conf``. During
-installation of {Singularity}, the ``./mconfig`` step will set the
+installation of {Project}, the ``./mconfig`` step will set the
 correct value in ``singularity.conf`` if ``nvidia-container-cli`` is
 found on the ``$PATH``. If the value of ``nvidia-container-cli path`` is
-empty, {Singularity} will look for the binary on ``$PATH`` at runtime.
+empty, {Project} will look for the binary on ``$PATH`` at runtime.
 
 .. note::
 
@@ -830,9 +830,9 @@ empty, {Singularity} will look for the binary on ``$PATH`` at runtime.
    ``singularity.conf``.
 
 For security reasons, ``nvidia-container-cli`` cannot be used with privileged mode
-in a setuid installation of {Singularity}, it can only be used unprivileged. The
+in a setuid installation of {Project}, it can only be used unprivileged. The
 operations performed by ``nvidia-container-cli`` are broadly similar to
-those which {Singularity} carries out when setting up a GPU container
+those which {Project} carries out when setting up a GPU container
 from ``nvliblist.conf``.
 
 AMD Radeon GPUs / ROCm
@@ -840,7 +840,7 @@ AMD Radeon GPUs / ROCm
 
 The ``rocmliblist.conf`` file is used to specify libraries and
 executables that need to be injected into the container when running
-{Singularity} with the ``--rocm`` Radeon GPU support option. The
+{Project} with the ``--rocm`` Radeon GPU support option. The
 provided ``rocmliblist.conf`` is suitable for ROCm 4.0, but may need to
 modified if you need to include additional libraries, or further
 libraries are added to newer versions of the ROCm distribution.
@@ -899,9 +899,9 @@ configured in ``/etc/ld.so.conf`` (libraries).
    a user special privileges within a container. For that and similar
    use cases, the :ref:`fakeroot feature <fakeroot>` is a better option.
 
-{Singularity} provides full support for admins to grant and revoke Linux
+{Project} provides full support for admins to grant and revoke Linux
 capabilities on a user or group basis. The ``capability.json`` file is
-maintained by {Singularity} in order to manage these capabilities. The
+maintained by {Project} in order to manage these capabilities. The
 ``capability`` command group allows you to ``add``, ``drop``, and
 ``list`` capabilities for users and groups.
 
@@ -916,7 +916,7 @@ To do so, we would issue a command such as this:
    $ sudo singularity capability add --user pinger CAP_NET_RAW
 
 This means the user ``pinger`` has just been granted permissions
-(through Linux capabilities) to open raw sockets within {Singularity}
+(through Linux capabilities) to open raw sockets within {Project}
 containers.
 
 We can check that this change is in effect with the ``capability list``
@@ -943,14 +943,14 @@ request the capability when executing a container with the
    rtt min/avg/max/mdev = 73.178/73.178/73.178/0.000 ms
 
 If we decide that it is no longer necessary to allow the user ``pinger``
-to open raw sockets within {Singularity} containers, we can revoke the
+to open raw sockets within {Project} containers, we can revoke the
 appropriate Linux capability like so:
 
 .. code::
 
    $ sudo singularity capability drop --user pinger CAP_NET_RAW
 
-Now if ``pinger`` tries to use ``CAP_NET_RAW``, {Singularity} will not
+Now if ``pinger`` tries to use ``CAP_NET_RAW``, {Project} will not
 give the capability to the container and ``ping`` will fail to create a
 socket:
 
@@ -987,7 +987,7 @@ system calls if it matches the filter rule and you can set it to
 ``SCMP_ACT_ERRNO`` which will have the thread receive a return value of
 *errno* if it calls a system call that matches the filter rule. The file
 is formatted in a way that it can take a list of additional system calls
-for different architecture and {Singularity} will automatically take
+for different architecture and {Project} will automatically take
 syscalls related to the current architecture where it's been executed.
 The ``include``/``exclude``-> ``caps`` section will include/exclude the
 listed system calls if the user has the associated capability.
@@ -1023,14 +1023,14 @@ Sylabs introduced the online `Sylabs Cloud
 <https://cloud.sylabs.io/library/guide#create>`_ their container images
 with others.
 
-{Singularity} allows users to login to an account on the Sylabs Cloud,
-or configure {Singularity} to use an API compatible container service
-such as a local installation of {Singularity} Enterprise, which provides
+{Project} allows users to login to an account on the Sylabs Cloud,
+or configure {Project} to use an API compatible container service
+such as a local installation of {Project} Enterprise, which provides
 an on-premise private Container Library, Remote Builder and Key Store.
 
 .. note::
 
-   A fresh installation of {Singularity} is automatically configured to
+   A fresh installation of {Project} is automatically configured to
    connect to the public `Sylabs Cloud <https://cloud.sylabs.io>`__
    services.
 
@@ -1063,7 +1063,7 @@ Conversely, to remove a system-wide endpoint:
 Exclusive Endpoint
 ------------------
 
-{Singularity} 3.7 introduces the ability for an administrator to make a
+{Project} 3.7 introduces the ability for an administrator to make a
 remote the only usable remote for the system by using the
 ``--exclusive`` flag:
 
@@ -1091,7 +1091,7 @@ remote the only usable remote for the system by using the
 Insecure (HTTP) Endpoints
 -------------------------
 
-From {Singularity} 3.9, if you are using a endpoint that exposes its
+From {Project} 3.9, if you are using a endpoint that exposes its
 service discovery file over an insecure HTTP connection only, it can be
 added by specifying the ``--insecure`` flag:
 
@@ -1115,7 +1115,7 @@ endpoints, please check the `Remote Userdocs
 Keyserver Configuration
 =======================
 
-By default, {Singularity} will use the keyserver correlated to the
+By default, {Project} will use the keyserver correlated to the
 active cloud service endpoint. This behavior can be changed or
 supplemented via the ``add-keyserver`` and ``remove-keyserver``
 commands. These commands allow an administrator to create a global list

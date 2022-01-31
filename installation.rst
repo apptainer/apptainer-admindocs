@@ -1,19 +1,19 @@
 .. _installation:
 
 ##########################
- Installing {Singularity}
+ Installing {Project}
 ##########################
 
 This section will guide you through the process of installing
-{Singularity} {InstallationVersion} via several different methods. (For
-instructions on installing earlier versions of {Singularity} please see
+{Project} {InstallationVersion} via several different methods. (For
+instructions on installing earlier versions of {Project} please see
 `earlier versions of the docs <https://singularity.hpcng.org/docs/>`_.)
 
 ***********************
  Installation on Linux
 ***********************
 
-{Singularity} can be installed on any modern Linux distribution, on
+{Project} can be installed on any modern Linux distribution, on
 bare-metal or inside a Virtual Machine. Nested installations inside
 containers are not recommended, and require the outer container to be
 run with full privilege.
@@ -21,12 +21,12 @@ run with full privilege.
 System Requirements
 ===================
 
-{Singularity} requires ~140MiB disk space once compiled and installed.
+{Project} requires ~140MiB disk space once compiled and installed.
 
 There are no specific CPU or memory requirements at runtime, though 2GB
 of RAM is recommended when building from source.
 
-Full functionality of {Singularity} requires that the kernel supports:
+Full functionality of {Project} requires that the kernel supports:
 
 -  **OverlayFS mounts** - (minimum kernel >=3.18) Required for full
    flexibility in bind mounts to containers, and to support persistent
@@ -39,8 +39,8 @@ Full functionality of {Singularity} requires that the kernel supports:
 External Binaries
 -----------------
 
-Singularity depends on a number of external binaries for full
-functionality. From {Singularity} 3.9, the methods that are used to find
+{Project} depends on a number of external binaries for full
+functionality. From {Project} 3.9, the methods that are used to find
 these binaries have been standardized as below.
 
 Configurable Paths
@@ -66,7 +66,7 @@ For the following additional binaries, if the ``singularity.conf`` entry
 is left blank, then ``$PATH`` will be searched at runtime.
 
 -  ``go`` is required to compile plugins, and must be an identical
-   version as that used to build {Singularity}.
+   version as that used to build {Project}.
 
 -  ``mksquashfs`` from squashfs-tools 4.3+ is used to create the
    squashfs container filesystem that is embedded into SIF container
@@ -111,14 +111,14 @@ distributions using their native tooling:
 Non-standard ldconfig / Nix & Guix Environments
 -----------------------------------------------
 
-If {Singularity} is installed under a package manager such as Nix or
+If {Project} is installed under a package manager such as Nix or
 Guix, but on top of a standard Linux distribution (e.g. CentOS or
 Debian), it may be unable to correctly find the libraries for ``--nv``
 and ``--rocm`` GPU support. This issue occurs as the package manager
 supplies an alternative ``ldconfig``, which does not identify GPU
 libraries installed from host packages.
 
-To allow {Singularity} to locate the host (i.e. CentOS / Debian) GPU
+To allow {Project} to locate the host (i.e. CentOS / Debian) GPU
 libraries correctly, set ``ldconfig path`` in ``singularity.conf`` to
 point to the host ``ldconfig``. I.E. it should be set to
 ``/sbin/ldconfig`` or ``/sbin/ldconfig.real`` rather than a Nix or Guix
@@ -127,15 +127,15 @@ related path.
 Filesystem support / limitations
 --------------------------------
 
-{Singularity} supports most filesystems, but there are some limitations
-when installing {Singularity} on, or running containers from, common
+{Project} supports most filesystems, but there are some limitations
+when installing {Project} on, or running containers from, common
 parallel / network filesystems. In general:
 
--  We strongly recommend installing {Singularity} on local disk on each
+-  We strongly recommend installing {Project} on local disk on each
    compute node.
 
--  If {Singularity} is installed to a network location, a
-   ``--localstatedir`` should be provided on each node, and Singularity
+-  If {Project} is installed to a network location, a
+   ``--localstatedir`` should be provided on each node, and {Project}
    configured to use it.
 
 -  The ``--localstatedir`` filesystem should support overlay mounts.
@@ -147,7 +147,7 @@ parallel / network filesystems. In general:
 
    Set the ``--localstatedir`` location by by providing
    ``--localstatedir my/dir`` as an option when you configure your
-   {Singularity} build with ``./mconfig``.
+   {Project} build with ``./mconfig``.
 
    Disk usage at the ``--localstatedir`` location is negligible (<1MiB).
    The directory is used as a location to mount the container root
@@ -158,18 +158,18 @@ parallel / network filesystems. In general:
 Overlay support
 ^^^^^^^^^^^^^^^
 
-Various features of {Singularity}, such as the ``--writable-tmpfs`` and
+Various features of {Project}, such as the ``--writable-tmpfs`` and
 ``--overlay``, options use the Linux ``overlay`` filesystem driver to
 construct a container root filesystem that combines files from different
 locations. Not all filesystems can be used with the ``overlay`` driver,
-so when containers are run from these filesystems some {Singularity}
+so when containers are run from these filesystems some {Project}
 features may not be available.
 
 Overlay support has two aspects:
 
 -  ``lowerdir`` support for a filesystem allows a directory on that
    filesystem to act as the 'base' of a container. A filesystem must
-   support overlay ``lowerdir`` for you be able to run a Singularity
+   support overlay ``lowerdir`` for you be able to run a {Project}
    sandbox container on it, while using functionality such as
    ``--writable-tmpfs`` / ``--overlay``.
 
@@ -187,7 +187,7 @@ overlay.
 Fakeroot / (sub)uid/gid mapping
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-When {Singularity} is run using the :ref:`fakeroot <fakeroot>` option it
+When {Project} is run using the :ref:`fakeroot <fakeroot>` option it
 creates a user namespace for the container, and UIDs / GIDs in that user
 namespace are mapped to different host UID / GIDs.
 
@@ -200,10 +200,10 @@ of the mappings it will deny many operations, with 'permission denied'
 errors. This is currently a generic problem for rootless container
 runtimes.
 
-{Singularity} cache / atomic rename
+{Project} cache / atomic rename
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-{Singularity} will cache SIF container images generated from remote
+{Project} will cache SIF container images generated from remote
 sources, and any OCI/docker layers used to create them. The cache is
 created at ``$HOME/.singularity/cache`` by default. The location of the
 cache can be changed by setting the ``SINGULARITY_CACHEDIR`` environment
@@ -220,8 +220,8 @@ The directory used for ``SINGULARITY_CACHEDIR`` should be:
 
 -  Located on a filesystem that supports atomic rename, if possible.
 
-In {Singularity} version 3.6 and above the cache is concurrency safe.
-Parallel runs of {Singularity} that would create overlapping cache
+In {Project} version 3.6 and above the cache is concurrency safe.
+Parallel runs of {Project} that would create overlapping cache
 entries will not conflict, as long as the filesystem used by
 ``SINGULARITY_CACHEDIR`` supports atomic rename operations.
 
@@ -237,7 +237,7 @@ filesystems support atomic rename, do not run ``singularity`` in parallel
 using remote container URLs. Instead use ``singularity pull`` to create
 a local SIF image, and then run this SIF image in a parallel step. An
 alternative is to use the ``--disable-cache`` option, but this will
-result in each {Singularity} instance independently fetching the
+result in each {Project} instance independently fetching the
 container from the remote source, into a temporary location.
 
 NFS
@@ -264,7 +264,7 @@ Lustre / GPFS
 ^^^^^^^^^^^^^
 
 Lustre and GPFS do not have sufficient ``upperdir`` or ``lowerdir``
-overlay support for certain {Singularity} features, and do not support
+overlay support for certain {Project} features, and do not support
 user-namespace (sub)uid/gid mapping.
 
 -  You cannot use ``-overlay`` or ``--writable-tmpfs`` with a sandbox
@@ -287,11 +287,11 @@ user-namespace (sub)uid/gid mapping.
 Install from Source
 ===================
 
-To use the latest version of {Singularity} from GitHub you will need to
+To use the latest version of {Project} from GitHub you will need to
 build and install it from source. This may sound daunting, but the
 process is straightforward, and detailed below.
 
-If you have an earlier version of {Singularity} installed, you should
+If you have an earlier version of {Project} installed, you should
 :ref:`remove it <remove-an-old-version>` before executing the
 installation commands. You will also need to install some dependencies
 and install `Go <https://golang.org/>`_.
@@ -331,7 +331,7 @@ On Ubuntu or Debian install the following dependencies:
 
 .. note::
 
-   You can build {Singularity} (3.5+) without ``cryptsetup`` available,
+   You can build {Project} (3.5+) without ``cryptsetup`` available,
    but will not be able to use encrypted containers without it installed
    on your system.
 
@@ -340,7 +340,7 @@ On Ubuntu or Debian install the following dependencies:
 Install Go
 ----------
 
-{Singularity} v3 is written primarily in Go, and you will need Go 1.16
+{Project} v3 is written primarily in Go, and you will need Go 1.16
 or above installed to compile it from source.
 
 This is one of several ways to `install and configure Go
@@ -375,10 +375,10 @@ Then, set up your environment for Go.
        echo 'export PATH=/usr/local/go/bin:${PATH}:${GOPATH}/bin' >> ~/.bashrc && \
        source ~/.bashrc
 
-Download {Singularity} from a release
+Download {Project} from a release
 -------------------------------------
 
-You can download {Singularity} from one of the releases. To see a full
+You can download {Project} from one of the releases. To see a full
 list, visit `the GitHub release page
 <https://github.com/hpcng/singularity/releases>`_. After deciding on a
 release to install, you can run the following commands to proceed with
@@ -394,7 +394,7 @@ the installation.
 Checkout Code from Git
 ----------------------
 
-The following commands will install {Singularity} from the `GitHub repo
+The following commands will install {Project} from the `GitHub repo
 <https://github.com/hpcng/singularity>`_ to ``/usr/local``. This method
 will work for >=v{InstallationVersion}. To install an older tagged
 release see `older versions of the docs <https://singularity.hpcng.org/docs/>`_.
@@ -415,12 +415,12 @@ When installing from source, you can decide to install from either a
    tagged point release.
 
 -  **master branch**: The ``master`` branch contains the latest,
-   bleeding edge version of {Singularity}. This is the default branch
+   bleeding edge version of {Project}. This is the default branch
    when you clone the source code, so you don't have to check out any
    new branches to install it. The ``master`` branch changes quickly and
    may be unstable.
 
-To ensure that the {Singularity} source code is downloaded to the
+To ensure that the {Project} source code is downloaded to the
 appropriate directory use these commands.
 
 .. code::
@@ -429,15 +429,15 @@ appropriate directory use these commands.
        cd singularity && \
        git checkout v{InstallationVersion}
 
-Compile Singularity
+Compile {Project}
 -------------------
 
-{Singularity} uses a custom build system called ``makeit``. ``mconfig``
+{Project} uses a custom build system called ``makeit``. ``mconfig``
 is called to generate a ``Makefile`` and then ``make`` is used to
 compile and install.
 
 To support the SIF image format, automated networking setup etc., and
-older Linux distributions without user namespace support, Singularity
+older Linux distributions without user namespace support, {Project}
 must be ``make install``ed as root or with ``sudo``, so it can install
 the ``libexec/singularity/bin/starter-setuid`` binary with root
 ownership and setuid permissions for privileged operations. If you need
@@ -450,7 +450,7 @@ to install as a normal user, or do not want to use setuid functionality
        make -C ./builddir && \
        sudo make -C ./builddir install
 
-By default {Singularity} will be installed in the ``/usr/local``
+By default {Project} will be installed in the ``/usr/local``
 directory hierarchy. You can specify a custom directory with the
 ``--prefix`` option, to ``mconfig`` like so:
 
@@ -459,13 +459,13 @@ directory hierarchy. You can specify a custom directory with the
    $ ./mconfig --prefix=/opt/singularity
 
 This option can be useful if you want to install multiple versions of
-{Singularity}, install a personal version of {Singularity} on a shared
-system, or if you want to remove {Singularity} easily after installing
+{Project}, install a personal version of {Project} on a shared
+system, or if you want to remove {Project} easily after installing
 it.
 
 For a full list of ``mconfig`` options, run ``mconfig --help``. Here are
 some of the most common options that you may need to use when building
-{Singularity} from source.
+{Project} from source.
 
 -  ``--sysconfdir``: Install read-only config files in sysconfdir. This
    option is important if you need the ``singularity.conf`` file or
@@ -473,11 +473,11 @@ some of the most common options that you may need to use when building
 
 -  ``--localstatedir``: Set the state directory where containers are
    mounted. This is a particularly important option for administrators
-   installing {Singularity} on a shared file system. The
+   installing {Project} on a shared file system. The
    ``--localstatedir`` should be set to a directory that is present on
    each individual node.
 
--  ``-b``: Build {Singularity} in a given directory. By default this is
+-  ``-b``: Build {Project} in a given directory. By default this is
    ``./builddir``.
 
 .. _install-nonsetuid:
@@ -485,9 +485,9 @@ some of the most common options that you may need to use when building
 Unprivileged (non-setuid) Installation
 --------------------------------------
 
-If you need to install {Singularity} as a non-root user, or do not wish
+If you need to install {Project} as a non-root user, or do not wish
 to allow the use of a setuid root binary, you can configure
-{Singularity} with the ``--without-suid`` option to mconfig:
+{Project} with the ``--without-suid`` option to mconfig:
 
 .. code::
 
@@ -495,11 +495,11 @@ to allow the use of a setuid root binary, you can configure
        make -C ./builddir && \
        make -C ./builddir install
 
-If you have already installed {Singularity} you can disable the setuid
+If you have already installed {Project} you can disable the setuid
 flow by setting the option ``allow setuid = no`` in
 ``etc/singularity/singularity.conf`` within your installation directory.
 
-When {Singularity} does not use setuid all container execution will use
+When {Project} does not use setuid all container execution will use
 a user namespace. This requires support from your operating system
 kernel, and imposes some limitations on functionality. You should review
 the :ref:`requirements <userns-requirements>` and :ref:`limitations
@@ -509,10 +509,10 @@ this guide.
 Relocatable Installation
 ------------------------
 
-Since {Singularity} 3.8, an unprivileged (non-setuid) installation is
+Since {Project} 3.8, an unprivileged (non-setuid) installation is
 relocatable. As long as the structure inside the installation directory
 (``--prefix``) is maintained, it can be moved to a different location
-and {Singularity} will continue to run normally.
+and {Project} will continue to run normally.
 
 Relocation of a default setuid installation is not supported, as
 restricted location / ownership of configuration files is important to
@@ -521,7 +521,7 @@ security.
 Source bash completion file
 ---------------------------
 
-To enjoy bash shell completion with {Singularity} commands and options,
+To enjoy bash shell completion with {Project} commands and options,
 source the bash completion file:
 
 .. code::
@@ -530,16 +530,16 @@ source the bash completion file:
 
 Add this command to your ``~/.bashrc`` file so that bash completion
 continues to work in new shells. (Adjust the path if you installed
-{Singularity} to a different location.)
+{Project} to a different location.)
 
 .. _install-rpm:
 
 Build and install an RPM
 ========================
 
-If you use RHEL, CentOS or SUSE, building and installing a Singularity
-RPM allows your {Singularity} installation be more easily managed,
-upgraded and removed. In {Singularity} >=v3.0.1 you can build an RPM
+If you use RHEL, CentOS or SUSE, building and installing a {Project}
+RPM allows your {Project} installation be more easily managed,
+upgraded and removed. In {Project} >=v3.0.1 you can build an RPM
 directly from the `release tarball
 <https://github.com/hpcng/singularity/releases>`_.
 
@@ -581,14 +581,14 @@ following:
 
    It is very important to set the local state directory to a directory
    that physically exists on nodes within a cluster when installing
-   {Singularity} in an HPC environment with a shared file system.
+   {Project} in an HPC environment with a shared file system.
 
 Build an RPM from Git source
 ----------------------------
 
 Alternatively, to build an RPM from a branch of the Git repository you
 can clone the repository, directly ``make`` an rpm, and use it to
-install Singularity:
+install {Project}:
 
 .. code::
 
@@ -612,10 +612,10 @@ dist`` to create a tarball that you can then build into an rpm with
 Remove an old version
 =====================
 
-In a standard installation of {Singularity} 3.0.1 and beyond (when
+In a standard installation of {Project} 3.0.1 and beyond (when
 building from source), the command ``sudo make install`` lists all the
 files as they are installed. You must remove all of these files and
-directories to completely remove {Singularity}.
+directories to completely remove {Project}.
 
 .. code::
 
@@ -627,17 +627,17 @@ directories to completely remove {Singularity}.
        /usr/local/bin/run-singularity \
        /usr/local/etc/bash_completion.d/singularity
 
-If you anticipate needing to remove {Singularity}, it might be easier to
+If you anticipate needing to remove {Project}, it might be easier to
 install it in a custom directory using the ``--prefix`` option to
-``mconfig``. In that case {Singularity} can be uninstalled simply by
+``mconfig``. In that case {Project} can be uninstalled simply by
 deleting the parent directory. Or it may be useful to install
-{Singularity} :ref:`using a package manager <install-rpm>` so that it
+{Project} :ref:`using a package manager <install-rpm>` so that it
 can be updated and/or uninstalled with ease in the future.
 
 Testing & Checking the Build Configuration
 ==========================================
 
-After installation you can perform a basic test of Singularity
+After installation you can perform a basic test of {Project}
 functionality by executing a simple container from the Sylabs Cloud
 library:
 
@@ -648,14 +648,14 @@ library:
 
 See the `user guide
 <{userdocs}>`__ for more
-information about how to use {Singularity}.
+information about how to use {Project}.
 
 singularity buildcfg
 --------------------
 
 Running ``singularity buildcfg`` will show the build configuration of an
-installed version of {Singularity}, and lists the paths used by
-{Singularity}. Use ``singularity buildcfg`` to confirm paths are set
+installed version of {Project}, and lists the paths used by
+{Project}. Use ``singularity buildcfg`` to confirm paths are set
 correctly for your installation, and troubleshoot any 'not-found' errors
 at runtime.
 
@@ -689,13 +689,13 @@ Note that the ``LOCALSTATEDIR`` and ``SESSIONDIR`` should be on local,
 non-shared storage.
 
 The list of files installed by a successful ``setuid`` installation of
-{Singularity} can be found in the :ref:`appendix, installed files
+{Project} can be found in the :ref:`appendix, installed files
 section <installed-files>`.
 
 Test Suite
 ----------
 
-The {Singularity} codebase includes a test suite that is run during
+The {Project} codebase includes a test suite that is run during
 development using CI services.
 
 If you would like to run the test suite locally you can run the test
@@ -708,7 +708,7 @@ targets from the ``builddir`` directory in the source tree:
 -  ``make integration-test`` runs integration tests
 
 -  ``make e2e-test`` runs end-to-end tests, which exercise a large
-   number of operations by calling the {Singularity} CLI with different
+   number of operations by calling the {Project} CLI with different
    execution profiles.
 
 .. note::
@@ -716,7 +716,7 @@ targets from the ``builddir`` directory in the source tree:
    Running the full test suite requires a ``docker`` installation, and
    ``nc`` in order to test docker and instance/networking functionality.
 
-   {Singularity} must be installed in order to run the full test suite,
+   {Project} must be installed in order to run the full test suite,
    as it must run the CLI with setuid privilege for the ``starter-suid``
    binary.
 
@@ -730,12 +730,12 @@ targets from the ``builddir`` directory in the source tree:
  Installation on Windows or Mac
 ********************************
 
-Linux container runtimes like {Singularity} cannot run natively on
+Linux container runtimes like {Project} cannot run natively on
 Windows or Mac because of basic incompatibilities with the host kernel.
 (Contrary to a popular misconception, MacOS does not run on a Linux
 kernel. It runs on a kernel called Darwin originally forked from BSD.)
 
-For this reason, the {Singularity} community maintains a set of Vagrant
+For this reason, the {Project} community maintains a set of Vagrant
 Boxes via `Vagrant Cloud <https://www.vagrantup.com/>`__, one of
 `Hashicorp's <https://www.hashicorp.com/#open-source-tools>`_ open
 source tools. The current versions can be found under the `sylabs
@@ -754,7 +754,7 @@ Install the following programs:
 Mac
 ===
 
-{Singularity} is available via Vagrant (installable with `Homebrew
+{Project} is available via Vagrant (installable with `Homebrew
 <https://brew.sh>`_ or manually)
 
 To use Vagrant via Homebrew:
@@ -764,7 +764,7 @@ To use Vagrant via Homebrew:
    $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
    $ brew install --cask virtualbox vagrant vagrant-manager
 
-{Singularity} Vagrant Box
+{Project} Vagrant Box
 =========================
 
 Run Git Bash (Windows) or open a terminal (Mac) and create and enter a
@@ -793,7 +793,7 @@ Then issue the following commands to bring up the Virtual Machine.
        vagrant up && \
        vagrant ssh
 
-You can check the installed version of {Singularity} with the following:
+You can check the installed version of {Project} with the following:
 
 .. code::
 
@@ -801,14 +801,13 @@ You can check the installed version of {Singularity} with the following:
    {InstallationVersion}
 
 Of course, you can also start with a plain OS Vagrant box as a base and
-then install {Singularity} using one of the above methods for Linux.
+then install {Project} using one of the above methods for Linux.
 
-{Singularity} Docker Image
+{Project} Docker Image
 ==========================
 
-It is possible to use a Dockerized Singularity, here is a sample
-``compose.yaml`` (Singularity version 3.7.4) for use with Docker
-Compose:
+It is possible to use a Dockerized {Project}, here is a sample
+``compose.yaml`` for use with Docker Compose:
 
 .. code::
 
@@ -822,10 +821,10 @@ Compose:
          - .:/root
        entrypoint: ["/bin/sh"]
 
-Singularity in Docker can have various disadvantages, but basic
+{Project} in Docker can have various disadvantages, but basic
 container operations will work. Currently, the intended use case is
 continuous integration, meaning that you should be able to build a
-Singularity container using this Docker Compose file. For more
+{Project} container using this Docker Compose file. For more
 information see `issue#5
 <https://github.com/sylabs/singularity-admindocs/issues/5#issuecomment-852307931>`_
 and the image's source `repo

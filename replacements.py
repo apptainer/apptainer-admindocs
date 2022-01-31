@@ -13,16 +13,11 @@ def variableReplace(app, docname, source):
 # dictionary structure.
 variable_replacements = {
     # This is used in install instructions, so should be a full version
-    "{InstallationVersion}" : "3.8.5",
-    "{userdocs}" : "https://singularity.hpcng.org/user-docs/3.8",
-    # The versions in the published guide URLs are for major.minor only
-    "{adminversion}": "3.8",
-    "{userversion}": "3.8",
-    # The 'Singularity' noun is now a replacement so we can have
-    # {Singularity}  rather than bare 'Singularity'... and HPCng can
-    # replace to SingularityPRO so that it is clearer where docs
-    # diverge a bit from Singularity<->SingularityPRO due to long-term backports etc.
-    "{Singularity}": "Singularity",
+    "{InstallationVersion}" : "1.0.0",
+    "{userdocs}" : "https://apptainer.org/docs/user/main",
+    "{adminversion}": "main",
+    "{userversion}": "main",
+    "{Project}": "Apptainer",
     # Version of Go to be used in install instructions
     "{GoVersion}": "1.17.6"
 }
