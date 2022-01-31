@@ -261,10 +261,6 @@ types of image formats that can be leveraged by users with
 
    These limitations do not apply to the root user.
 
-   This behavior differs from {Project} versions before 3.9, where
-   the ``allow container squashfs/extfs`` directives also applied to the
-   filesystem embedded in a SIF image.
-
 Networking Options
 ==================
 
@@ -275,7 +271,7 @@ virtualization
 Unrestricted use of CNI network configurations requires root privilege,
 as certain configurations may disrupt the host networking environment.
 
-{Project} 3.8 allows specific users or groups to be granted the
+{Project} allows specific users or groups to be granted the
 ability to run containers with administrator specified CNI
 configurations.
 
@@ -393,7 +389,7 @@ SIF and SquashFS containers.
 Concurrent Downloads
 ====================
 
-{Project} 3.9 and above will pull ``library://`` container images
+{Project} will pull ``library://`` container images
 using multiple concurrent downloads of parts of the image. This speeds
 up downloads vs using a single stream. The defaults are generally
 appropriate for the Sylabs Cloud, but may be tuned for your network
@@ -509,7 +505,7 @@ processes.
 -  v2 documentation:
    https://www.kernel.org/doc/Documentation/cgroup-v2.txt
 
-{Project} 3.9 and above can apply resource limitations to systems
+{Project} can apply resource limitations to systems
 configured for both cgroups v1 and the v2 unified hierarchy. Resource
 limits are specified using a TOML file that represents the ``resources``
 section of the OCI runtime-spec:
@@ -743,9 +739,8 @@ group are allowed to run.
 
 .. note::
 
-   The ECL checks will use the new signature format introduced in
-   {Project} 3.6.0. Containers signed with older versions of
-   {Project} will not pass ECL checks.
+   Containers signed by Singularity versions older than 3.6.0 will not
+   pass ECL checks because they are insecure.
 
    To temporarily permit the use of legacy insecure signatures, set
    ``legacyinsecure = true`` in ``ecl.toml``.
@@ -753,7 +748,7 @@ group are allowed to run.
 Managing ECL public keys
 ========================
 
-Since {Project} 3.7.0 a global keyring is used for ECL signature
+{Project} uses a global keyring for ECL signature
 verification. This keyring can be administered using the ``--global``
 flag for the following commands:
 
@@ -811,7 +806,7 @@ The `nvidia-container-cli
 officially support method for configuring containers to use a GPU. It is
 targeted at OCI container runtimes.
 
-{Project} 3.9 introduces an experimental ``--nvccli`` option, which
+{Project} has an experimental ``--nvccli`` option, which
 will call out to ``nvidia-container-cli`` for container GPU setup,
 rather than use the ``nvliblist.conf`` approach.
 
@@ -1063,7 +1058,7 @@ Conversely, to remove a system-wide endpoint:
 Exclusive Endpoint
 ------------------
 
-{Project} 3.7 introduces the ability for an administrator to make a
+{Project} has the ability for an administrator to make a
 remote the only usable remote for the system by using the
 ``--exclusive`` flag:
 
@@ -1091,7 +1086,7 @@ remote the only usable remote for the system by using the
 Insecure (HTTP) Endpoints
 -------------------------
 
-From {Project} 3.9, if you are using a endpoint that exposes its
+If you are using a endpoint that exposes its
 service discovery file over an insecure HTTP connection only, it can be
 added by specifying the ``--insecure`` flag:
 

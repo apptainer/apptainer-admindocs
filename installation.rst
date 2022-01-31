@@ -40,7 +40,7 @@ External Binaries
 -----------------
 
 {Project} depends on a number of external binaries for full
-functionality. From {Project} 3.9, the methods that are used to find
+functionality. The methods that are used to find
 these binaries have been standardized as below.
 
 Configurable Paths
@@ -220,7 +220,7 @@ The directory used for ``SINGULARITY_CACHEDIR`` should be:
 
 -  Located on a filesystem that supports atomic rename, if possible.
 
-In {Project} version 3.6 and above the cache is concurrency safe.
+The {Project} cache is concurrency safe.
 Parallel runs of {Project} that would create overlapping cache
 entries will not conflict, as long as the filesystem used by
 ``SINGULARITY_CACHEDIR`` supports atomic rename operations.
@@ -331,7 +331,7 @@ On Ubuntu or Debian install the following dependencies:
 
 .. note::
 
-   You can build {Project} (3.5+) without ``cryptsetup`` available,
+   You can build {Project} without ``cryptsetup`` available,
    but will not be able to use encrypted containers without it installed
    on your system.
 
@@ -410,8 +410,8 @@ When installing from source, you can decide to install from either a
 -  **release branch**: A release branch represents the latest version of
    a minor release with all the newest bug fixes and enhancements (even
    those that have not yet made it into a point release). For instance,
-   to install v3.2 with the latest bug fixes and enhancements checkout
-   ``release-3.2``. Release branches may be less stable than code in a
+   to install v1.0 with the latest bug fixes and enhancements checkout
+   ``release-1.0``. Release branches may be less stable than code in a
    tagged point release.
 
 -  **master branch**: The ``master`` branch contains the latest,
@@ -509,7 +509,7 @@ this guide.
 Relocatable Installation
 ------------------------
 
-Since {Project} 3.8, an unprivileged (non-setuid) installation is
+An unprivileged (non-setuid) {Project} installation is
 relocatable. As long as the structure inside the installation directory
 (``--prefix``) is maintained, it can be moved to a different location
 and {Project} will continue to run normally.
@@ -539,7 +539,7 @@ Build and install an RPM
 
 If you use RHEL, CentOS or SUSE, building and installing a {Project}
 RPM allows your {Project} installation be more easily managed,
-upgraded and removed. In {Project} >=v3.0.1 you can build an RPM
+upgraded and removed.  You can build an RPM
 directly from the `release tarball
 <https://github.com/hpcng/singularity/releases>`_.
 
@@ -612,7 +612,7 @@ dist`` to create a tarball that you can then build into an rpm with
 Remove an old version
 =====================
 
-In a standard installation of {Project} 3.0.1 and beyond (when
+In a standard installation of {Project} (when
 building from source), the command ``sudo make install`` lists all the
 files as they are installed. You must remove all of these files and
 directories to completely remove {Project}.
