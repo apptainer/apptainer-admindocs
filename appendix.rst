@@ -4,7 +4,7 @@
  Installed Files
 #################
 
-An installation of {Singularity} {InstallationVersion}, performed as
+An installation of {Project} {InstallationVersion}, performed as
 root via ``sudo make install`` consists of the following files, with
 ownership and permissions required to use the `setuid` workflow:
 
@@ -43,7 +43,7 @@ ownership and permissions required to use the `setuid` workflow:
    libexec/singularity/cni/bridge root:root 755 (-rwxr-xr-x)
    libexec/singularity/cni/vlan root:root 755 (-rwxr-xr-x)
    
-   # Singularity configuration
+   # {Project} configuration
    etc/singularity root:root 755 (drwxr-xr-x)
    etc/singularity/network root:root 755 (drwxr-xr-x)
    etc/singularity/network/10_ptp.conflist root:root 644 (-rw-r--r--)
