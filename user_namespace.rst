@@ -261,7 +261,7 @@ veth pair.
 Configuration with ``config fakeroot``
 ======================================
 
-{Project} 3.5 and above provides a ``config fakeroot`` command that
+{Project} provides a ``config fakeroot`` command that
 can be used by a root user to administer local system ``/etc/subuid``
 and ``/etc/subgid`` files in a simple manner. This allows users to be
 granted the ability to use {Project}'s fakeroot functionality without
