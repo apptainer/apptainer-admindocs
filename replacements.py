@@ -19,7 +19,8 @@ variable_replacements = {
     "{userversion}": "main",
     "{Project}": "Apptainer",
     # Version of Go to be used in install instructions
-    "{GoVersion}": "1.17.6"
+    "{GoVersion}": "1.17.6",
+    "{ENVPREFIX}": "APPTAINER"
 }
 
 
