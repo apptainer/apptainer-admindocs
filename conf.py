@@ -120,7 +120,7 @@ html_theme_options = {
 
 html_context = {
     'display_github': True,
-    'github_user': 'hpcng',
+    'github_user': 'apptainer',
     'github_repo': 'singularity-admindocs',
     'github_version': 'master',
     'conf_py_path': '/',
@@ -279,7 +279,7 @@ epub_theme = 'epub'
 
 # The unique identifier of the text. This can be a ISBN number
 # or the project homepage.
-epub_identifier = 'https://github.com/hpcng/singularity-admindocs'
+epub_identifier = 'https://github.com/apptainer/apptainer-admindocs'
 
 # The publication scheme for the epub_identifier. This is put in the Dublin Core metadata.
 # For published books the scheme is 'ISBN'. If you use the project homepage, 'URL' seems reasonable.
