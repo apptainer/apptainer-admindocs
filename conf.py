@@ -291,12 +291,6 @@ epub_uid = epub_title
 # A list of files that should not be packed into the epub file.
 epub_exclude_files = []
 
-# -- Custom lexer ---------------------------------------------------------
-
+# include replacements
 sys.path.append(os.path.join(os.path.dirname(__file__), '.'))
-from sphinx.highlighting import lexers
-from pygments_singularity import SingularityLexer
 from replacements import *
-
-# lexer for Singularity definition files (added here until it is upstreamed into Pygments).
-lexers['singularity'] = SingularityLexer(startinline=True)
