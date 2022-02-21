@@ -21,7 +21,8 @@ variable_replacements = {
     # Version of Go to be used in install instructions
     "{GoVersion}": "1.17.6",
     "{ENVPREFIX}": "APPTAINER",
-    "{orgrepo}": "apptainer/apptainer"
+    "{orgrepo}": "apptainer/apptainer",
+    "{command}": "apptainer"
 }
 
 
