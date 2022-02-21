@@ -201,7 +201,7 @@ the installation.
 .. code::
 
     $ export VERSION={InstallationVersion} && # adjust this as necessary \
-        wget https://github.com/hpcng/{command}/releases/download/v${VERSION}/{command}-${VERSION}.tar.gz && \
+        wget https://github.com/{orgrepo}/releases/download/v${VERSION}/{command}-${VERSION}.tar.gz && \
         tar -xzf {command}-${VERSION}.tar.gz && \
         cd {command}
 
