@@ -3,10 +3,14 @@ name: publish
 
 on:
   push:
+    branches:
+      - main
+      - 1.*
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    if: github.repository == 'apptainer/apptainer-admindocs'
     steps:
       - uses: actions/checkout@v2
         with:
