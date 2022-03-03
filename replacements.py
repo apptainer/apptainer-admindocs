@@ -14,9 +14,9 @@ def variableReplace(app, docname, source):
 variable_replacements = {
     # This is used in install instructions, so should be a full version
     "{InstallationVersion}" : "1.0.0",
-    "{userdocs}" : "https://apptainer.org/docs/user/main",
-    "{adminversion}": "main",
-    "{userversion}": "main",
+    "{userdocs}" : "https://apptainer.org/docs/user/1.0",
+    "{adminversion}": "1.0",
+    "{userversion}": "1.0",
     "{Project}": "Apptainer",
     "{AProject}": "An Apptainer",
     "{aProject}": "an Apptainer",
