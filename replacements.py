@@ -13,7 +13,7 @@ def variableReplace(app, docname, source):
 # dictionary structure.
 variable_replacements = {
     # This is used in install instructions, so should be a full version
-    "{InstallationVersion}" : "1.0.0",
+    "{InstallationVersion}" : "1.0.2",
     "{userdocs}" : "https://apptainer.org/docs/user/main",
     "{adminversion}": "main",
     "{userversion}": "main",
@@ -21,7 +21,7 @@ variable_replacements = {
     "{AProject}": "An Apptainer",
     "{aProject}": "an Apptainer",
     # Version of Go to be used in install instructions
-    "{GoVersion}": "1.17.6",
+    "{GoVersion}": "1.18.1",
     "{ENVPREFIX}": "APPTAINER",
     "{orgrepo}": "apptainer/apptainer",
     "{command}": "apptainer"
