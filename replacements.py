@@ -18,9 +18,9 @@ variable_replacements = {
     # a release candidate replaced with dot and an additional hyphen and
     # release number added
     "{GitHubDownloadVersion}" : "1.1.0-1",
-    "{userdocs}" : "https://apptainer.org/docs/user/1.1",
-    "{adminversion}": "1.1",
-    "{userversion}": "1.1",
+    "{userdocs}" : "https://apptainer.org/docs/user/main",
+    "{adminversion}": "main",
+    "{userversion}": "main",
     "{Project}": "Apptainer",
     "{AProject}": "An Apptainer",
     "{aProject}": "an Apptainer",
@@ -29,7 +29,7 @@ variable_replacements = {
     "{GoVersion}": "1.19.1",
     "{ENVPREFIX}": "APPTAINER",
     "{orgrepo}": "apptainer/apptainer",
-    "{repobranch}": "1.1",
+    "{repobranch}": "main",
 }
 
 
