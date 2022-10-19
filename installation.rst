@@ -476,8 +476,15 @@ source tools, by following the instructions below. Then you can install
 {Project} in the base VM of your choice by following the linux
 :ref:`installation instructions <installation>` above.
 
+You can also use `Lima <https://github.com/lima-vm/lima>`_ to install
+both the Linux VM and {Project} for access from the host operating system.
+It will install the "cloud" version of the selected VM operating system.
+
 Windows
 =======
+
+Vagrant
+-------
 
 Install the following programs:
 
@@ -486,8 +493,24 @@ Install the following programs:
 -  `Vagrant for Windows <https://www.vagrantup.com/downloads.html>`_
 -  `Vagrant Manager for Windows <http://vagrantmanager.com/downloads/>`_
 
+Lima
+----
+
+The Windows version of Lima (using Hyper-V) is still in development.
+
+You can use `WSL <https://docs.microsoft.com/en-us/windows/wsl/>`_ instead:
+
+.. code::
+
+   > wsl --install
+
+And use the Linux instructions.
+
 Mac
 ===
+
+Vagrant
+-------
 
 {Project} is available via Vagrant (installable with `Homebrew
 <https://brew.sh>`_ or manually)
@@ -498,3 +521,16 @@ To use Vagrant via Homebrew:
 
    $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
    $ brew install --cask virtualbox vagrant vagrant-manager
+
+Lima
+----
+
+{Project} is available via Lima (installable with `Homebrew
+<https://brew.sh>`_ or manually)
+
+To use Lima via Homebrew:
+
+.. code::
+
+   $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+   $ brew install qemu lima
