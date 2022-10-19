@@ -522,6 +522,30 @@ To use Vagrant via Homebrew:
    $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
    $ brew install --cask virtualbox vagrant vagrant-manager
 
+Use ``vagrant init`` to create a new Vagrantfile, or use this example:
+
+.. code-block:: ruby
+
+   Vagrant.configure("2") do |config|
+     # Choose operating system distribution
+     config.vm.box = "fedora/36-cloud-base"
+
+     config.vm.provider "virtualbox" do |vb|
+       # Customize the number of cpus on the VM:
+       vb.cpus = "1"
+
+       # Customize the amount of memory on the VM:
+       vb.memory = "1024"
+     end
+
+     config.vm.provision "shell", inline: <<-SHELL
+       # Matching linux installation instructions
+       yum install -y {command}
+     SHELL
+   end
+
+Then do ``vagrant up``, and ``vagrant ssh`` to access the virtual machine.
+
 Lima
 ----
 
@@ -534,3 +558,7 @@ To use Lima via Homebrew:
 
    $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
    $ brew install qemu lima
+
+Then do ``limactl start template://apptainer`` and ``limactl shell apptainer``.
+
+See the `lima apptainer template <https://github.com/lima-vm/lima/blob/master/examples/apptainer.yaml>`_ for more details.
