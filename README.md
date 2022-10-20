@@ -24,7 +24,7 @@ First things first, you will need to install the following tools:
 - After that then you will need to install Sphinx:
 
 ```sh
-pip install -U Sphinx sphinx-rtd-theme
+pip install -U Sphinx sphinx-rtd-theme sphinx-copybutton
 ```
 
 You're all set! after this you will only need to use your favorite editor for

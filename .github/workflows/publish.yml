@@ -29,7 +29,7 @@ jobs:
 
       - name: Install Sphinx
         run: |
-          pip install --user --upgrade --upgrade-strategy eager sphinx sphinx-rtd-theme restructuredtext_lint pygments
+          pip install --user --upgrade --upgrade-strategy eager sphinx sphinx-rtd-theme sphinx-copybutton restructuredtext_lint pygments
 
       - name: Build web documentation
         run: |

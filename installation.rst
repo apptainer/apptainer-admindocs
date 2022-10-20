@@ -525,6 +525,7 @@ To use Vagrant via Homebrew:
 Use ``vagrant init`` to create a new Vagrantfile, or use this example:
 
 .. code-block:: ruby
+   :class: copy-button
 
    Vagrant.configure("2") do |config|
      # Choose operating system distribution
