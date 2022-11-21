@@ -29,7 +29,7 @@ variable_replacements = {
     "{GoVersion}": "1.19.1",
     "{ENVPREFIX}": "APPTAINER",
     "{orgrepo}": "apptainer/apptainer",
-    "{repobranch}": "1.1",
+    "{repobranch}": "release-1.1",
 }
 
 
