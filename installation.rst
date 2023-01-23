@@ -325,8 +325,7 @@ For the setuid installation do above command first and then this one:
 Install Debian/Ubuntu packages
 ------------------------------
 
-Pre-built Debian/Ubuntu packages are available on PPA (Personal Package Archive) and GitHub and only
-for the amd64 architecture.
+Pre-built Debian/Ubuntu packages are available on PPA (Personal Package Archive) and for the amd64 and arm64 architecture.
 For the non-setuid installation use these commands:
 
 .. code::
