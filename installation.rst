@@ -345,7 +345,7 @@ For the setuid installation do above commands first and then these:
 Install Ubuntu packages
 ------------------------------
 
-Pre-built Ubuntu packages are available on PPA (Personal Package Archive) for the amd64 and arm64 architectures. 
+Pre-built Ubuntu packages are available on PPA (Personal Package Archive) for the amd64 and arm64 architectures on all current Ubuntu releases except 18.04. 
 
 First, on Ubuntu based containers install `software-properties-common` package to obtain `add-apt-repository` command. On Ubuntu Desktop/Server derived systems skip this step.
 
