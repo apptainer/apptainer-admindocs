@@ -249,7 +249,7 @@ Install unprivileged from pre-built binaries
 A script is available to make a relocatable unprivileged binary installation 
 of {Project}, including all dependencies that are not normally installed
 on Linux systems.  The script works on current Red Hat Enterprise Linux-derived
-systems, Fedora, SUSE/OpenSUSE, Debian, and Ubuntu.
+systems, Fedora, SUSE/OpenSUSE, Debian, and Ubuntu (except 18.04).
 
 This is the easiest way to use it:
 
