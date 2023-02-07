@@ -124,7 +124,7 @@ html_context = {
     'display_github': True,
     'github_user': 'apptainer',
     'github_repo': 'apptainer-admindocs',
-    'github_version': 'master',
+    'github_version': 'main',
     'conf_py_path': '/',
 }
 
