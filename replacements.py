@@ -17,7 +17,7 @@ variable_replacements = {
     # This should be the same as the above except with any hyphen before
     # a release candidate replaced with dot, and an additional hyphen and
     # release number added
-    "{GitHubDownloadVersion}" : "1.2.0",
+    "{GitHubDownloadVersion}" : "1.2.0-1",
     "{userdocs}" : "https://apptainer.org/docs/user/main",
     "{adminversion}": "main",
     "{userversion}": "main",
