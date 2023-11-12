@@ -66,12 +66,12 @@ jobs:
       - name: Update website repo
         run: |
           git clone git@github.com:apptainer/apptainer.org.git ~/apptainer.org
-          rm -rf ~/apptainer.org/static/docs/admin/${GITHUB_REF##*/}
-          cp -r _build/html ~/apptainer.org/static/docs/admin/${GITHUB_REF##*/}
-          cd ~/apptainer.org/static/docs/admin/
+          rm -rf ~/apptainer.org/public/docs/admin/${GITHUB_REF##*/}
+          cp -r _build/html ~/apptainer.org/public/docs/admin/${GITHUB_REF##*/}
+          cd ~/apptainer.org/public/docs/admin/
           version=`ls -1 | grep -E "^[0-9\.]+$" | sort -V | tail -n 1`
-          ln -sfn ${version} ~/apptainer.org/static/docs/admin/latest
+          ln -sfn ${version} ~/apptainer.org/public/docs/admin/latest
           cd ~/apptainer.org
-          git add static/docs/admin/${GITHUB_REF##*/} static/docs/admin/latest
+          git add public/docs/admin/${GITHUB_REF##*/} public/docs/admin/latest
           git commit -m "Update ${GITHUB_REF##*/} admindocs"
           git push
