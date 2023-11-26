@@ -620,3 +620,14 @@ To use Lima via Homebrew:
 Then do ``limactl start template://apptainer`` and ``limactl shell apptainer``.
 
 See the `lima apptainer template <https://github.com/lima-vm/lima/blob/master/examples/apptainer.yaml>`_ for more details.
+
+To use Lima from the host:
+
+.. code::
+
+   $ apptainer run docker://ghcr.io/apptainer/lolcow  ## link to "apptainer.lima"
+   $ apptainer build /tmp/lima/lolcow_latest.sif docker://ghcr.io/apptainer/lolcow
+
+For large images, it is faster to use a local filesystem (like is done for the cache).
+
+By default, the home directory (``$HOME``) is mounted as read-only but there is a shared writable directory mounted in ``/tmp/lima``.
