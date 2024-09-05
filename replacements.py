@@ -13,11 +13,11 @@ def variableReplace(app, docname, source):
 # dictionary structure.
 variable_replacements = {
     # This is used in install instructions, so should be a full version
-    "{InstallationVersion}" : "1.3.3",
+    "{InstallationVersion}" : "1.3.4",
     # This should be the same as the above except with any hyphen before
     # a release candidate replaced with dot, and an additional hyphen and
     # release number added
-    "{GitHubDownloadVersion}" : "1.3.3-1",
+    "{GitHubDownloadVersion}" : "1.3.4-1",
     "{userdocs}" : "https://apptainer.org/docs/user/1.3",
     "{adminversion}": "1.3",
     "{userversion}": "1.3",
