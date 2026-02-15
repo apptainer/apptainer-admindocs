@@ -1226,7 +1226,7 @@ searching ``$PATH``:
      - "dmtcp_command"
      - "dmtcp_discover_rm"
      - "dmtcp_launch"
-   [...]
+   ...
 
 Libraries are specified as an array under the ``libs`` key and should be
 specified without version information, i.e.
@@ -1239,7 +1239,7 @@ specified without version information, i.e.
      - "libdmtcp_alloc.so"
      - "libdmtcp_dl.so"
      - "libdmtcp_modify-env.so"
-   [...]
+   ...
 
 If you receive warnings that binaries or libraries are not found, ensure
 that they are in a system path (binaries), or available in paths
