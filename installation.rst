@@ -56,6 +56,22 @@ Full functionality of {Project} requires that the kernel supports:
    the kernel OverlayFS driver doesn't work, fuse-overlayfs will be used
    instead.
 
+Optional functionality of {Project} requires additional installation:
+
+-  **BuildKit** - Required to build SIF files from Containerfiles,
+   which is expecting the ``BUILDKIT_HOST`` environment variable
+   to be set to a BuildKit daemon installation. It also requires
+   the ``buildctl`` client program to be installed in the PATH.
+   It is possible to use the ``~/.ipfs/gateway`` or ``/etc/ipfs/gateway``
+   configuration files, instead of using the environment variable.
+
+-  **IPFS** - Required to download SIF files from ``ipfs://``
+   addresses, and needs an ``IPFS_GATEWAY`` environment variable
+   to be to set with the address (URL) of an IPFS HTTP gateway.
+   The ``ipfs`` client is required, in order to upload images.
+   It is possible to use ``~/.config/buildkit/buildkitd.toml`` or
+   ``/etc/buildkit/buildkitd.toml`` config files, instead of env var.
+
 Instructions to install without or with setuid privileges are below.
 Please make sure you are familiar with the discussion on
 `Setuid & User Namespaces <{userdocs}/security.html#setuid-user-namespaces>`_
