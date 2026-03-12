@@ -759,3 +759,40 @@ The second options enables the {command} ``-p/--pid`` option (which is
 implied by ``-C/--containall``).
 The third option is needed for unprivileged FUSE mounts.
 
+**********************
+ Optional Requirements
+**********************
+
+BuildKit
+========
+
+{Project} uses BuildKit to build SIF files from a Containerfile
+(also known as Dockerfile)
+
+The ``buildctl`` client and ``buildkitd`` server (including ``runc``)
+can be downloaded from the project page:
+
+* `BuildKit <https://github.com/moby/buildkit>`_
+
+Running the daemon as rootless requires user namespaces, and the
+installation of ``rootlesskit`` from:
+
+* `RootlessKit <https://github.com/rootless-containers/rootlesskit>`_
+
+Note: You don't need to install BuildKit, in order to `build images <{userdocs}/definition_files.html>`_.
+
+IPFS
+====
+
+{Project} can pull images from an ``ipfs://`` address, by using
+a IPFS HTTP Gateway proxy.
+
+It can either use a public gateway, or a private gateway:
+
+* `Rainbow <https://github.com/ipfs/rainbow>`_
+
+In order to push/add images, the ``ipfs`` client is needed:
+
+* `Kubo <https://github.com/ipfs/kubo>`_
+
+Note: You don't need to install IPFS, in order to `pull from ORAS <{userdocs}/registry.html>`_.
