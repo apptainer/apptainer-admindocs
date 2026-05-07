@@ -18,16 +18,16 @@ variable_replacements = {
     # a release candidate replaced with dot
     "{GitHubDownloadVersion}" : "1.5.0",
     "{GitHubDownloadRelease}" : "1",
-    "{userdocs}" : "https://apptainer.org/docs/user/main",
-    "{adminversion}": "main",
-    "{userversion}": "main",
+    "{userdocs}" : "https://apptainer.org/docs/user/1.5",
+    "{adminversion}": "1.5",
+    "{userversion}": "1.5",
     "{Project}": "Apptainer",
     "{AProject}": "An Apptainer",
     "{aProject}": "an Apptainer",
     "{command}": "apptainer",
     "{ENVPREFIX}": "APPTAINER",
     "{orgrepo}": "apptainer/apptainer",
-    "{repobranch}": "main",
+    "{repobranch}": "release-1.5",
 }
 
 
