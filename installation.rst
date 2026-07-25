@@ -723,14 +723,6 @@ Lima supports using an Apple GPU from the Linux environment, with `krunkit <http
     $ brew install krunkit
     $ limactl start --vm-type=krunkit template:apptainer
 
-For now you need to install `mesa-vulkan-drivers` from the `mesa-krunkit <https://launchpad.net/~step22/+archive/ubuntu/mesa-krunkit>`_ PPA:
-
-.. code:: shell
-
-    sudo add-apt-repository ppa:step22/mesa-krunkit
-    sudo apt update
-    sudo apt install -y vulkan-tools mesa-vulkan-drivers=24*
-
 After that, you should have full access to ``/dev/dri`` also from the containers:
 
 .. code:: console
