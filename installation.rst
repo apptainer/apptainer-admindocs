@@ -710,6 +710,12 @@ so you need to add a shared writable directory mount if you want output
 that can be accessed both from the host and in the guest (see ``--mount``).
 If you want to mount it as read-write, use the flag: ``--mount-writable``.
 
+To run {Project} from the host, you can use the ``apptainer.lima`` wrapper.
+For easier access, you can alias or symlink it to the ``apptainer`` command.
+
+See the `"run-singularity" script <https://github.com/apptainer/apptainer/blob/main/scripts/run-singularity>`_
+for running SIF files.
+
 GPU Support
 ^^^^^^^^^^^
 
