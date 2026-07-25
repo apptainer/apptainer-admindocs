@@ -707,9 +707,8 @@ for more details.
 
 By default, the host home directory is mounted as read-only in the guest,
 so you need to add a shared writable directory mount if you want output
-that can be accessed both from the host and in the guest.
-
-Previously there was a mount in `/tmp/lima`, it was removed in Lima 2.0.
+that can be accessed both from the host and in the guest (see ``--mount``).
+If you want to mount it as read-write, use the flag: ``--mount-writable``.
 
 GPU Support
 ^^^^^^^^^^^
