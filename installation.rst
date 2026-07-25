@@ -718,7 +718,8 @@ Lima supports using an Apple GPU from the Linux environment, with `krunkit <http
 
 .. code:: console
 
-    $ brew tap slp/krunkit
+    $ brew tap libkrun/krun
+    $ brew trust libkrun/krun
     $ brew install krunkit
     $ limactl start --vm-type=krunkit template:apptainer
 
