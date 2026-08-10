@@ -34,5 +34,4 @@ variable_replacements = {
 def setup(app):
     app.add_config_value('variable_replacements', {}, True)
     app.connect('source-read', variableReplace)
-    app.add_css_file('custom.css')
-
+    # app.add_css_file('custom.css')
