@@ -936,7 +936,8 @@ That enables {command} to run in both unprivileged mode and in suid
 mode.
 
 {Project} unprivileged mode can also be used inside docker without
-enabling docker privileged mode, using these additional docker options:
+enabling docker privileged mode, using these additional docker options
+at least on RHEL-based hosts:
 
 .. code:: shell
 
@@ -947,6 +948,12 @@ The first option enables the ``unshare`` system call to work, which
 The second options enables the {command} ``-p/--pid`` option (which is
 implied by ``-C/--containall``).
 The third option is needed for unprivileged FUSE mounts.
+
+On Debian-based hosts, replace ``seccomp=unconfined`` with
+``apparmor=unconfined``.  For Ubuntu 24.04 and later the apparmor
+restriction on unprivileged user namespaces also needs to be disabled on
+the host as described in
+:ref:`User Namespace Requirements <userns-requirements>`.
 
 **********************
  Optional Requirements
