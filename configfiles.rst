@@ -380,7 +380,20 @@ implicitly added.
 command (``exec/shell/run/instance``) to be executed with the ``--rocm``
 option implicitly added.
 
-``gpu library path``: A comma separated list of directories to search for the GPU driver libraries named in ``nvliblist.conf`` and ``rocmliblist.conf`` when binding them into a container with ``--nv`` or ``--rocm``. These directories are searched before the ``ld.so`` cache reported by ``ldconfig -p``, and they work without it. Set this option on systems where the driver libraries are not in the ``ld.so`` cache, or where ``ldconfig`` is not available at all, such as NixOS or Guix. If it is not set and ``ldconfig`` cannot be run, no host GPU libraries are found. List the directories holding the 32-bit libraries used by ``--compat32`` alongside the 64-bit ones; libraries are picked by architecture, not by the directory they are found in. The modules and the non-library files named in ``nvliblist.conf`` are also looked for relative to these directories, as described in :ref:`GPU liblist format <gpu_liblist_format>`.
+``gpu library path``: A comma separated list of directories to search
+for the GPU driver libraries named in ``nvliblist.conf`` and
+``rocmliblist.conf`` when binding them into a container with ``--nv`` or
+``--rocm``. These directories are searched before the ``ld.so`` cache
+reported by ``ldconfig -p``, and they work without it. Set this option
+on systems where the driver libraries are not in the ``ld.so`` cache, or
+where ``ldconfig`` is not available at all, such as NixOS or Guix. If it
+is not set and ``ldconfig`` cannot be run, no host GPU libraries are
+found. List the directories holding the 32-bit libraries used by
+``--compat32`` alongside the 64-bit ones; libraries are picked by
+architecture, not by the directory they are found in. The modules and
+the non-library files named in ``nvliblist.conf`` are also looked for
+relative to these directories, as described in
+:ref:`GPU liblist format <gpu_liblist_format>`.
 
 Supplemental Filesystems
 ========================
@@ -839,9 +852,26 @@ section of the user guide.
 NVIDIA GPUs / CUDA
 ==================
 
-The ``nvliblist.conf`` configuration file lists the libraries, executables, modules and non-library files to inject into the container when running {Project} with the ``--nv`` NVIDIA GPU support option. The provided ``nvliblist.conf`` covers the current NVIDIA driver series for both compute and graphics. It may need to be modified to include additional files, or files added by newer versions of the NVIDIA driver or CUDA distribution.
+The ``nvliblist.conf`` configuration file lists the libraries,
+executables, modules and non-library files to inject into the container
+when running {Project} with the ``--nv`` NVIDIA GPU support option. The
+provided ``nvliblist.conf`` is intended to support most versions of the
+NVIDIA driver and CUDA, for both compute and graphics. It may need to be
+modified to include additional files, or files added by newer versions
+of the NVIDIA driver or CUDA distribution.
 
-Each entry of ``nvliblist.conf`` is one of four kinds: the bare filename of an executable, found by searching ``$PATH``; a library in the ``xxxx.so`` form, resolved via ``ldconfig -p`` and the ``gpu library path`` directories; a module, given as its path relative to a library directory, such as ``gbm/nvidia-drm_gbm.so``; or a non-library file, given as a full absolute path. Modules are driver files that a program loads by their path instead of by name, so the ``ld.so`` cache does not list them, and they are looked for next to every library directory. A non-library file is bound from the same path on the host, or from under the prefix of a ``gpu library path`` directory. See :ref:`GPU liblist format <gpu_liblist_format>` for the details of each kind.
+Each entry of ``nvliblist.conf`` is one of four kinds: the bare filename
+of an executable, found by searching ``$PATH``; a library in the
+``xxxx.so`` form, resolved via ``ldconfig -p`` and the
+``gpu library path`` directories; a module, given as its path relative
+to a library directory, such as ``gbm/nvidia-drm_gbm.so``; or a
+non-library file, given as a full absolute path. Modules are driver
+files that a program loads by their path instead of by name, so the
+``ld.so`` cache does not list them, and they are looked for next to
+every library directory. A non-library file is bound from the same path
+on the host, or from under the prefix of a ``gpu library path``
+directory. See :ref:`GPU liblist format <gpu_liblist_format>` for the
+details of each kind.
 
 Experimental nvidia-container-cli Support
 -----------------------------------------
@@ -861,7 +891,11 @@ The operations performed by ``nvidia-container-cli`` are broadly similar to
 those which {Project} carries out when setting up a GPU container
 from ``nvliblist.conf``.
 
-``nvidia-container-cli`` stages the driver's own libraries, and {Project} leaves those to it. The entries of ``nvliblist.conf`` that the tool does not stage, such as the modules, the configuration files and the EGL platform libraries, are bound with ``--nvccli`` in the same way as with ``--nv``.
+``nvidia-container-cli`` stages the driver's own libraries, and
+{Project} leaves those to it. The entries of ``nvliblist.conf`` that the
+tool does not stage, such as the modules, the configuration files and
+the EGL platform libraries, are bound with ``--nvccli`` in the same way
+as with ``--nv``.
 
 AMD Radeon GPUs / ROCm
 ======================
@@ -883,7 +917,10 @@ resolved via ``ldconfig -p``, and executables are found by searching
 GPU liblist format
 ==================
 
-The ``nvliblist.conf`` and ``rocmliblist.conf`` files list the executables and libraries to bind into the container, without path information. ``nvliblist.conf`` also lists the modules and the non-library files that the graphics stack needs.
+The ``nvliblist.conf`` and ``rocmliblist.conf`` files list the
+executables and libraries to bind into the container, without path
+information. ``nvliblist.conf`` also lists the modules and the
+non-library files that the graphics stack needs.
 
 Binaries are found by searching ``$PATH``:
 
@@ -895,7 +932,11 @@ Binaries are found by searching ``$PATH``:
    rocm-smi
    rocminfo
 
-Libraries should be specified without version information, i.e. ``libname.so``, and are resolved using ``ldconfig`` and the ``gpu library path`` directories. They are bound into the container's library directory, ``/.singularity.d/libs``, which is added to ``LD_LIBRARY_PATH``.
+Libraries should be specified without version information, i.e.
+``libname.so``, and are resolved using ``ldconfig`` and the
+``gpu library path`` directories. They are bound into the container's
+library directory, ``/.singularity.d/libs``, which is added to
+``LD_LIBRARY_PATH``.
 
 .. code:: linuxconfig
 
@@ -904,7 +945,18 @@ Libraries should be specified without version information, i.e. ``libname.so``, 
    libcomgr.so
    libCXLActivityLogger.so
 
-Modules are driver files that a program loads by their path instead of by name, so the ``ld.so`` cache never lists them. They are the GBM backend that Mesa's ``libgbm`` loads, and the X server's driver and GLX modules. A module is given as its path relative to a library directory, ending in ``.so``. It is looked for under that path next to every library directory, and next to the parent of each library directory, because Debian keeps ``/usr/lib/xorg/modules`` beside ``/usr/lib/<multiarch>``. A module is bound twice: at its host path, where an X server or ``libgbm`` laid out like the host looks for it, and at the same relative path under ``/.singularity.d/libs``. ``GBM_BACKENDS_PATH`` is set in the container so that the bound GBM backend is found before the container's own.
+Modules are driver files that a program loads by their path instead of
+by name, so the ``ld.so`` cache never lists them. They are the GBM
+backend that Mesa's ``libgbm`` loads, and the X server's driver and GLX
+modules. A module is given as its path relative to a library directory,
+ending in ``.so``. It is looked for under that path next to every
+library directory, and next to the parent of each library directory,
+because Debian keeps ``/usr/lib/xorg/modules`` beside
+``/usr/lib/<multiarch>``. A module is bound twice: at its host path,
+where an X server or ``libgbm`` laid out like the host looks for it, and
+at the same relative path under ``/.singularity.d/libs``.
+``GBM_BACKENDS_PATH`` is set in the container so that the bound GBM
+backend is found before the container's own.
 
 .. code:: linuxconfig
 
@@ -914,7 +966,14 @@ Modules are driver files that a program loads by their path instead of by name, 
    xorg/modules/drivers/nvidia_drv.so
    xorg/modules/extensions/libglxserver_nvidia.so
 
-Non-library files are the EGL, Vulkan and OpenCL configuration files and the X server configuration snippets. They are given as absolute paths. A file is bound at that path from the host. When the driver is installed under the prefix of a ``gpu library path`` directory, the file is taken from under that prefix instead: ``/usr/share/x`` is found as ``<prefix>/share/x`` and ``/etc/x`` as ``<prefix>/etc/x``. List every location that a loader reads, under both ``/etc`` and ``/usr/share``, as the provided file does.
+Non-library files are the EGL, Vulkan and OpenCL configuration files and
+the X server configuration snippets. They are given as absolute paths. A
+file is bound at that path from the host. When the driver is installed
+under the prefix of a ``gpu library path`` directory, the file is taken
+from under that prefix instead: ``/usr/share/x`` is found as
+``<prefix>/share/x`` and ``/etc/x`` as ``<prefix>/etc/x``. List every
+location that a loader reads, under both ``/etc`` and ``/usr/share``, as
+the provided file does.
 
 .. code:: linuxconfig
 
@@ -924,7 +983,10 @@ Non-library files are the EGL, Vulkan and OpenCL configuration files and the X s
    /etc/glvnd/egl_vendor.d/10_nvidia.json
    /usr/share/vulkan/icd.d/nvidia_icd.json
 
-If you receive warnings that binaries or libraries are not found, ensure that they are in a system path (binaries), or available in paths configured in ``/etc/ld.so.conf`` or in ``gpu library path`` (libraries).
+If you receive warnings that binaries or libraries are not found, ensure
+that they are in a system path (binaries), or available in paths
+configured in ``/etc/ld.so.conf`` or in ``gpu library path``
+(libraries).
 
 *****************
  capability.json
