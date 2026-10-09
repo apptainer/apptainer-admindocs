@@ -195,6 +195,8 @@ is not mounted within the container.
    panic) when {Project} uses tmpfs, so on affected systems it's
    recommended to set this value to ``ramfs`` to avoid a kernel panic.
 
+.. _bind_mount_management:
+
 Bind Mount Management
 =====================
 
@@ -222,6 +224,55 @@ colon:
 .. code:: linuxconfig
 
    bind path = /etc/{command}/default-nsswitch.conf:/etc/nsswitch.conf
+
+By default, {Project} mounts bind paths with ``nosuid`` and ``nodev``,
+so setuid binaries and device files on them can't be used inside the
+container. A third colon-separated field takes a comma-separated list of
+mount options that relax this for one entry:
+
+.. code:: linuxconfig
+
+   bind path = <src>[:<dst>[:<options>]]
+
+``dev``
+   Don't add ``nodev``. Device files on the path can be opened, which
+   some filesystems need when they talk to a kernel module through a
+   device file inside the bound directory.
+
+``suid``
+   Don't add ``nosuid``. This only matters for the root user. Setuid
+   binaries are still blocked for unprivileged users, because {Project}
+   always sets ``PR_SET_NO_NEW_PRIVS`` for them.
+
+An empty destination is the same as the source, so ``/opt/tools::dev``
+is the same as ``/opt/tools:/opt/tools:dev``. For example:
+
+.. code:: linuxconfig
+
+   # nosuid,nodev (default)
+   bind path = /scratch
+   # devices allowed, nosuid kept
+   bind path = /opt/tools::dev
+   # host mount flags only
+   bind path = /opt/other:/opt/other:dev,suid
+
+Comments must be on their own lines; {Project} reads everything after
+the ``=`` as the value.
+
+These options never give the container more access than the host mount
+has. They mean "don't add the restriction", not "remove it". If the host
+mount of the source is already ``nodev`` or ``nosuid``, the flag is kept
+and {Project} prints a warning. Other host mount flags such as ``ro`` and
+``noexec`` are always kept. Enable only the option each path needs; in
+most cases that is ``dev`` alone.
+
+The options apply only to ``bind path`` entries in ``{command}.conf``.
+Users can't set them on ``--bind`` or ``--mount``, and they don't affect
+the home, current working directory, ``/tmp`` or ``/var/tmp`` mounts.
+``--no-mount <dst>`` still skips an entry by its destination. An
+unsupported option in an existing entry is ignored with a warning when a
+container starts, and ``{command} config global --set`` refuses to write
+one.
 
 ``user bind control``: This allows admins to decide if users can define
 bind points at runtime. By Default, this option is set to ``YES``, which
