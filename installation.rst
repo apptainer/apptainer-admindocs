@@ -292,6 +292,21 @@ filesystem, so those always use fuse-overlayfs.
 A FUSE-based filesystem is used by default when the upperdir is an extfs
 image.
 
+Running on minimal hosts
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+{Project} does not require some host files that are present on most
+distributions, and will operate without them. In particular, it does not
+fail to start or build a container when the host lacks ``/etc/localtime``,
+``/etc/hosts``, or ``/etc/resolv.conf`` (the container's own copy is left
+in place if one is present); when the ``/dev/fd`` symlinks are missing (e.g.
+on hosts without udev), it creates them in the container's ``/dev``; when the
+kernel has no ``binfmt_misc`` support, ``--fakeroot`` builds skip it rather
+than fail; and ``{command} inspect`` of a sandbox (and therefore
+``{command} build``) no longer requires a ``sh`` on the host. These make it
+possible to run and build containers on stripped-down or container-based
+hosts, and to perform OCI-to-SIF conversion there.
+
 
 Install unprivileged from pre-built binaries
 ============================================
